@@ -1,5 +1,10 @@
+import dotenv from "dotenv";
+import path from "path";
+
+dotenv.config({ path: path.resolve(process.cwd(), ".env") });
+
 export const ENV = {
-    PORT: 5000,
-    MONGO_URI: "mongodb://localhost:27017/numtalk-app",
-    JWT_SECRET: "supersecret",
+    PORT: process.env.PORT || 5000,
+    MONGO_URI: process.env.MONGO_URI,
+    JWT_SECRET: process.env.JWT_SECRET as string,
 };
