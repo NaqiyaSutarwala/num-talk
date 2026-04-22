@@ -13,9 +13,26 @@ app.use((req, res, next) => {
     next();
 });
 
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://num-talk.netlify.app",
+    "https://www.num-talk.netlify.app",
+];
+
 app.use(cors({
-    origin: ["http://localhost:5173", "num-talk.netlify.app"],
+    origin: (origin, callback) => {
+        // Allow non-browser tools (no Origin header) and configured frontend origins.
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+            return;
+        }
+
+        callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
+app.options("*", cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
