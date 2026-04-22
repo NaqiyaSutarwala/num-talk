@@ -1,4 +1,3 @@
-// src/app.ts
 import express from "express";
 import cors from "cors";
 
@@ -7,11 +6,6 @@ import treeRoutes from "./modules/tree/tree.routes";
 import { errorHandler } from "./middleware/error.middleware";
 
 const app = express();
-
-app.use((req, res, next) => {
-    console.log(`📡 [REQ] ${req.method} ${req.url}`);
-    next();
-});
 
 const allowedOrigins = [
     "http://localhost:5173",
