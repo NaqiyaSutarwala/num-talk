@@ -1,7 +1,10 @@
 import axios from "axios";
 
+const baseUrl = import.meta.env.REACT_BASE_URL || "http://localhost:5000";
+console.log(baseUrl)
+
 const api = axios.create({
-    baseURL: "http://localhost:5000/api",
+    baseURL: `${baseUrl}/api`,
 });
 
 api.interceptors.request.use((config) => {
