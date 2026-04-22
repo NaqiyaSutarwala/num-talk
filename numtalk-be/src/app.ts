@@ -21,7 +21,6 @@ const allowedOrigins = [
 
 app.use(cors({
     origin: (origin, callback) => {
-        // Allow non-browser tools (no Origin header) and configured frontend origins.
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
             return;
@@ -32,7 +31,6 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
-app.options("*", cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
