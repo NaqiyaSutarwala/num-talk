@@ -1,4 +1,3 @@
-// features/tree/api.ts
 import api from "../../shared/api/axios";
 
 export const getRootsApi = () =>

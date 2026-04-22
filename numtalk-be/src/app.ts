@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-    origin: ["http://localhost:5173", "https://num-talk-fe.onrender.com"],
+    origin: ["http://localhost:5173", "num-talk.netlify.app"],
 }));
 app.use(express.json());
 

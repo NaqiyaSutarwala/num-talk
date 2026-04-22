@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const baseUrl = import.meta.env.REACT_BASE_URL || "https://num-talk-be.onrender.com";
+// const baseUrl = import.meta.env.REACT_BASE_URL || "http://localhost:5000";
 console.log(baseUrl)
 
 const api = axios.create({

@@ -16,15 +16,11 @@ import { clearAuthToken, useAuthToken } from "./shared/auth/useAuthToken";
 export default function App() {
     const { isAuthenticated } = useAuthToken();
     const location = useLocation();
-    const isGuestOnTree = !isAuthenticated && location.pathname === "/tree";
-
-    const PrivateRoute = ({ children }: { children: ReactNode }) => {
-        if (!isAuthenticated) return <Navigate to="/login" replace />;
-        return children;
-    };
+    const isGuestOnTree = !isAuthenticated && location.pathname === "/home";
 
     const PublicOnlyRoute = ({ children }: { children: ReactNode }) => {
-        if (isAuthenticated) return <Navigate to="/app" replace />;
+        console.log(isAuthenticated, "is authenticated")
+        if (isAuthenticated) return <Navigate to="/home" replace />;
         return children;
     };
 
@@ -49,9 +45,6 @@ export default function App() {
                 <Stack direction="row" spacing={1.2} sx={{ flexWrap: "wrap" }}>
                     {isAuthenticated ? (
                         <>
-                            <Button component={Link} to="/app" variant="contained">
-                                My Feed
-                            </Button>
                             <Button
                                 variant="text"
                                 onClick={() => {
@@ -63,8 +56,9 @@ export default function App() {
                         </>
                     ) : (
                         <>
+                            {console.log(isGuestOnTree, "is guest on tree")}
                             {!isGuestOnTree && (
-                                <Button component={Link} to="/tree" variant="text">
+                                <Button component={Link} to="/home" variant="text">
                                     Continue as guest
                                 </Button>
                             )}
@@ -76,23 +70,13 @@ export default function App() {
             </Stack>
 
             <Routes>
-                <Route path="/" element={<Navigate to="/tree" replace />} />
+                <Route path="/" element={<Navigate to="/login" replace />} />
                 <Route
-                    path="/tree"
+                    path="/home"
                     element={
                         <Paper sx={{ p: { xs: 2, sm: 3 } }}>
-                            <Home />
+                            <Home allowCreate />
                         </Paper>
-                    }
-                />
-                <Route
-                    path="/app"
-                    element={
-                        <PrivateRoute>
-                            <Paper sx={{ p: { xs: 2, sm: 3 } }}>
-                                <Home allowCreate />
-                            </Paper>
-                        </PrivateRoute>
                     }
                 />
                 <Route
@@ -115,7 +99,7 @@ export default function App() {
                         </PublicOnlyRoute>
                     }
                 />
-                <Route path="*" element={<Navigate to="/tree" replace />} />
+                <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>
 
         </Container>

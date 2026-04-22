@@ -68,6 +68,10 @@ export default function OperationForm({ parentId }: any) {
                         parentId,
                         operation: op,
                         operand: Number(value),
+                    }, {
+                        onSuccess: () => {
+                            setValue("");
+                        },
                     })
                 }
             >

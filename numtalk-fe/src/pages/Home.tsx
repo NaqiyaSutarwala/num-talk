@@ -49,7 +49,7 @@ export default function Home({ allowCreate = false }: HomeProps) {
                         <TextField
                             label="Starting Number"
                             type="number"
-                            fullWidth
+                            sx={{ width: '84%' }}
                             size="small"
                             value={value}
                             onChange={(e) => setValue(e.target.value)}
@@ -63,8 +63,10 @@ export default function Home({ allowCreate = false }: HomeProps) {
                                 mutate(
                                     { value: Number(value) },
                                     {
-                                        onSuccess: (res: any) =>
-                                            setRootId(res.data._id),
+                                        onSuccess: (res: any) => {
+                                            setRootId(res.data._id);
+                                            setValue("");
+                                        },
                                     }
                                 )
                             }
